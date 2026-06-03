@@ -8,6 +8,8 @@ package Control;
  *
  * @author Adriana
  */
-public class RedCompleja {
+public abstract class RedCompleja {
+    public abstract void agregarNeurona(String id, double k);
+    public abstract void eliminarNeurona(String id);
     
 }

@@ -43,6 +43,10 @@ public class Neurotransmisor {
         this.nombre = nombre;
     }
     
+    public void buscarNeurotransmisor(){
+        
+    }
+    
     
     
     

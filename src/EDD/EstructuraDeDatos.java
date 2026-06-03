@@ -10,7 +10,7 @@ package EDD;
  */
 public abstract class EstructuraDeDatos {
     public abstract void limpiar ();
-    public abstract void numeroElementos();
+    public abstract void CantidadElementos();
     
  
     

@@ -31,6 +31,23 @@ public class Lista<T> {
         size++;
         
     }
+
+    public NodoLista<T> getHead() {
+        return head;
+    }
+
+    public void setHead(NodoLista<T> head) {
+        this.head = head;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
     
     
     
