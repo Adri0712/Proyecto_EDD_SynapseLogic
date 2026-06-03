@@ -8,6 +8,17 @@ package EDD;
  *
  * @author Adriana
  */
-public class NodoLista {
+public class NodoLista<T> {
+    public T dato;
+    public NodoLista<T> pNext;
+
+    public NodoLista(T dato) {
+        this.dato = dato;
+        this.pNext = null;       
+    }
+    
+    
+    
+    
     
 }

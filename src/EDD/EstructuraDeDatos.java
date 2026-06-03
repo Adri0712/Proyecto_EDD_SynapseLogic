@@ -8,6 +8,10 @@ package EDD;
  *
  * @author Adriana
  */
-public class EstructuraDeDatos {
+public abstract class EstructuraDeDatos {
+    public abstract void limpiar ();
+    public abstract void numeroElementos();
+    
+ 
     
 }
