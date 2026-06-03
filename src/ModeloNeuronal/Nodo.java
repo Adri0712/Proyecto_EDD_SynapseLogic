@@ -9,5 +9,19 @@ package ModeloNeuronal;
  * @author Adriana
  */
 public class Nodo {
+    protected String id;
+
+    public Nodo(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     
 }
