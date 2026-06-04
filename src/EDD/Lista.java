@@ -61,6 +61,17 @@ public class Lista<T> {
         }
         return false;
     }
+    
+    public boolean contiene(T dato) {
+    NodoLista<T> aux = head;
+    while (aux != null) {
+        if (aux.dato.equals(dato)) {
+            return true;
+        }
+        aux = aux.pNext;
+    }
+    return false;
+}
 
     public boolean isEmpty() {
         return head == null;
