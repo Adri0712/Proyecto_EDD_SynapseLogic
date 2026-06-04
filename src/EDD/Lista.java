@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package EDD;
 
-/**
- *
- * @author Adriana
- */
 public class Lista<T> {
+
     private NodoLista<T> head;
     private int size;
 
@@ -16,20 +9,61 @@ public class Lista<T> {
         this.head = null;
         this.size = 0;
     }
-    
-    public void agregar (T dato){
-        NodoLista<T> nuevo = new NodoLista<T>(dato);
-        if (head == null){
-            head = nuevo;           
-        }else{
+
+    // agrega al final de la lista
+    public void agregar(T dato) {
+        NodoLista<T> nuevo = new NodoLista<>(dato);
+        if (head == null) {
+            head = nuevo;
+        } else {
             NodoLista<T> aux = head;
-            while (aux.pNext != null){
-                aux = aux.pNext;           
+            while (aux.pNext != null) {
+                aux = aux.pNext;
             }
             aux.pNext = nuevo;
         }
         size++;
-        
+    }
+
+    // agrega al inicio, usado como pila en DFS
+    public void agregarAlInicio(T dato) {
+        NodoLista<T> nuevo = new NodoLista<>(dato);
+        nuevo.pNext = head;
+        head = nuevo;
+        size++;
+    }
+
+    // elimina y retorna el primero, usado como cola en BFS
+    public T removeFirst() {
+        if (head == null) return null;
+        T dato = head.dato;
+        head = head.pNext;
+        size--;
+        return dato;
+    }
+
+    // elimina la primera ocurrencia del dato
+    public boolean eliminar(T dato) {
+        if (head == null) return false;
+        if (head.dato.equals(dato)) {
+            head = head.pNext;
+            size--;
+            return true;
+        }
+        NodoLista<T> aux = head;
+        while (aux.pNext != null) {
+            if (aux.pNext.dato.equals(dato)) {
+                aux.pNext = aux.pNext.pNext;
+                size--;
+                return true;
+            }
+            aux = aux.pNext;
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
     public NodoLista<T> getHead() {
@@ -47,12 +81,4 @@ public class Lista<T> {
     public void setSize(int size) {
         this.size = size;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
