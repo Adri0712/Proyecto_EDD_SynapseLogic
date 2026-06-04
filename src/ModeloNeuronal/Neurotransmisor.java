@@ -1,30 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ModeloNeuronal;
 
-/**
- *
- * @author Adriana
- */
 public class Neurotransmisor {
+
     private String id;
     private String nombre;
     private double velocidadV;
+    private String efecto;
+    private String descripcion;
 
-    public Neurotransmisor(String id, String nombre, double velocidadV) {
+    public Neurotransmisor(String id, String nombre, double velocidadV, String efecto, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.velocidadV = velocidadV;
-    }
-
-    public double getVelocidadV() {
-        return velocidadV;
-    }
-
-    public void setVelocidadV(double velocidadV) {
-        this.velocidadV = velocidadV;
+        this.efecto = efecto;
+        this.descripcion = descripcion;
     }
 
     public String getId() {
@@ -42,14 +31,33 @@ public class Neurotransmisor {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public void buscarNeurotransmisor(){
-        
+
+    public double getVelocidadV() {
+        return velocidadV;
     }
-    
-    
-    
-    
-    
-    
+
+    public void setVelocidadV(double velocidadV) {
+        this.velocidadV = velocidadV;
+    }
+
+    public String getEfecto() {
+        return efecto;
+    }
+
+    public void setEfecto(String efecto) {
+        this.efecto = efecto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return id + " | " + nombre + " | v=" + velocidadV + " | " + efecto;
+    }
 }
