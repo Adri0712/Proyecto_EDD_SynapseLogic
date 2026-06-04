@@ -49,4 +49,32 @@ public class AlgoritmosGrafo {
 
         return visitados;
     }
+    
+        public static Lista<String> dfs(GrafoDirigido grafo, String fuente) {
+        Lista<String> visitados = new Lista<>();
+        Pila<String> pila = new Pila<>();
+
+        if (grafo.buscarNeurona(fuente) == null) {
+            return visitados;
+        }
+
+        pila.apilar(fuente);
+
+        while (!pila.estaVacia()) {
+            String actual = pila.desapilar();
+            if (!visitados.contiene(actual)) {
+                visitados.agregar(actual);
+                Neurona neurona = grafo.buscarNeurona(actual);
+                if (neurona != null) {
+                    NodoLista<Sinapsis> aux = neurona.getListaAdyacencia().getHead();
+                    while (aux != null) {
+                        pila.apilar(aux.dato.getDestino().getId());
+                        aux = aux.pNext;
+                    }
+                }
+            }
+        }
+
+        return visitados;
+    }
 }
