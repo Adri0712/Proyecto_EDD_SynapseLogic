@@ -19,6 +19,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
         grafo = new Control.GrafoDirigido(new EDD.TablaHash());
         panelGrafo = new PanelGrafo();
 
@@ -28,18 +29,24 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (ventanaGrafo == null) {
-                    ventanaGrafo = new javax.swing.JFrame("Grafo Neuronal");
-                    ventanaGrafo.setSize(650, 540);
+                    ventanaGrafo = new javax.swing.JFrame("Visualizador SynapseLogic");
+                    ventanaGrafo.setSize(800, 600);
                     ventanaGrafo.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+                    
+                    panelGrafo.setBackground(new java.awt.Color(245, 247, 250));
                     ventanaGrafo.add(panelGrafo);
                 }
+                
                 panelGrafo.setGrafo(grafo);
+                
+           
+                ventanaGrafo.setLocationRelativeTo(null); 
                 ventanaGrafo.setVisible(true);
             }
-        });
+});
 
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,115 +98,146 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        BtnCargar = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        BtnCargar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel9.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Salir");
-
-        BtnCargar.setText("Cargar Red Sinaptica (CSV)");
-        BtnCargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCargarActionPerformed(evt);
+        setBackground(new java.awt.Color(0, 51, 51));
+        setForeground(new java.awt.Color(255, 153, 0));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(245, 205, 125));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("Selecciona una opcion");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 270, 42));
+
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Cargar Diccionario de Neurotransmisores");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 190, -1, -1));
 
+        BtnCargar.setBackground(new java.awt.Color(51, 51, 51));
+        BtnCargar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCargar.setText("Cargar Red Sinaptica (CSV)");
+        BtnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCargarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 133, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(51, 51, 51));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Mostrar Grafo");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 133, -1, -1));
 
+        jButton6.setBackground(new java.awt.Color(51, 51, 51));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Simular Deterioro Cognitivo por Fatiga");
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 250, -1, -1));
+
+        jButton4.setBackground(new java.awt.Color(51, 51, 51));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Detectar Zonas Aisladas");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 310, -1, -1));
 
+        jButton5.setBackground(new java.awt.Color(51, 51, 51));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Simular Flujo de Señal (Dijkstra)");
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 310, -1, -1));
 
-        jButton6.setText("Simular Deterioro Cognitivo por Fatiga");
-
+        jButton7.setBackground(new java.awt.Color(51, 51, 51));
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Modificar Red");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
 
-        jLabel1.setText("Selecciona una opcion: ");
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 399, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/icon.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("para continuar:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 327, 42));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 360, 220));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel6.setText("jLabel5");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, 60, 360, 220));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel7.setText("jLabel5");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 270, 360, 220));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel8.setText("jLabel5");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 360, 220));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/fonfo2.png"))); // NOI18N
+        jLabel10.setText("jLabel5");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 240, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton6))))
-                .addGap(0, 110, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(jButton7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(BtnCargar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jButton3)))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(12, 12, 12)
-                .addComponent(BtnCargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(12, 12, 12)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addGap(12, 12, 12)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addGap(12, 12, 12)
-                .addComponent(jButton1)
-                .addContainerGap(36, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -339,6 +377,10 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -376,6 +418,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCargar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -384,5 +427,14 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
