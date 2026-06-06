@@ -19,6 +19,12 @@ public class AlgoritmosGrafo {
     
     //BFS realizado
     
+    /**
+     * Recorre el grafo en anchura (BFS) desde la neurona fuente.
+     * @param grafo el grafo a recorrer
+     * @param fuente ID de la neurona de inicio
+     * @return lista de IDs visitados en orden BFS
+     */
     public static Lista<String> bfs(GrafoDirigido grafo, String fuente) {
         Lista<String> visitados = new Lista<>();
         Cola<String> cola = new Cola<>();
@@ -50,7 +56,13 @@ public class AlgoritmosGrafo {
         return visitados;
     }
     
-        public static Lista<String> dfs(GrafoDirigido grafo, String fuente) {
+    /**
+     * Recorre el grafo en profundidad (DFS) desde la neurona fuente.
+     * @param grafo el grafo a recorrer
+     * @param fuente ID de la neurona de inicio
+     * @return lista de IDs visitados en orden DFS
+     */
+    public static Lista<String> dfs(GrafoDirigido grafo, String fuente) {
         Lista<String> visitados = new Lista<>();
         Pila<String> pila = new Pila<>();
 

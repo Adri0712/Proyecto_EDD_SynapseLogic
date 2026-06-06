@@ -24,6 +24,11 @@ public class GrafoDirigido extends RedCompleja {
     // ── Nodos ──────────────────────────────────────────────────────────────
 
     @Override
+    /**
+     * Agrega una neurona al grafo si no existe ya.
+     * @param id identificador unico de la neurona
+     * @param k coeficiente de eficiencia inicial
+     */
     public void agregarNeurona(String id, double k) {
         if (buscarNeurona(id) == null) {
             nodos.agregar(new Neurona(k, id));
@@ -95,6 +100,10 @@ public class GrafoDirigido extends RedCompleja {
 
     // ── Simular deterioro cognitivo: k × 1.2 en cada sinapsis ─────────────
 
+    /**
+     * Simula deterioro cognitivo multiplicando k por 1.2 en cada sinapsis
+     * y recalculando todos los pesos W.
+     */
     public void simularDeterioro() {
         NodoLista<Neurona> auxN = nodos.getHead();
         while (auxN != null) {
@@ -111,6 +120,12 @@ public class GrafoDirigido extends RedCompleja {
     // ── Dijkstra O(V²) ─────────────────────────────────────────────────────
     // Devuelve lista de IDs con la ruta más rápida; vacía si no existe camino
 
+    /**
+     * Calcula la ruta mas rapida entre dos neuronas usando Dijkstra O(V^2).
+     * @param idOrigen neurona de inicio
+     * @param idDestino neurona de llegada
+     * @return lista con los IDs en orden, vacia si no hay camino
+     */
     public Lista<String> dijkstra(String idOrigen, String idDestino) {
         int n = nodos.getSize();
         Lista<String> ruta = new Lista<>();
@@ -165,6 +180,11 @@ public class GrafoDirigido extends RedCompleja {
 
     // ── Zonas aisladas y conectividad ──────────────────────────────────────
 
+    /**
+     * Detecta las neuronas que no son alcanzables desde la neurona fuente.
+     * @param idFuente neurona desde donde se explora
+     * @return lista de IDs de neuronas aisladas
+     */
     public Lista<String> detectarZonasAisladas(String idFuente) {
         Lista<String> alcanzados = AlgoritmosGrafo.bfs(this, idFuente);
         Lista<String> aislados   = new Lista<>();
