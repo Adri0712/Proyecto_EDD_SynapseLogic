@@ -10,11 +10,76 @@ package Interfaces;
  */
 public class Menu extends javax.swing.JFrame {
 
+    private Control.GrafoDirigido grafo;
+    private PanelGrafo panelGrafo;
+    private javax.swing.JFrame ventanaGrafo;
+
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        grafo = new Control.GrafoDirigido(new EDD.TablaHash());
+        panelGrafo = new PanelGrafo();
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (ventanaGrafo == null) {
+                    ventanaGrafo = new javax.swing.JFrame("Grafo Neuronal");
+                    ventanaGrafo.setSize(650, 540);
+                    ventanaGrafo.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+                    ventanaGrafo.add(panelGrafo);
+                }
+                panelGrafo.setGrafo(grafo);
+                ventanaGrafo.setVisible(true);
+            }
+        });
+
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (grafo.getNodos().isEmpty()) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Primero carga una red.");
+                    return;
+                }
+                String origen = javax.swing.JOptionPane.showInputDialog("ID neurona origen:");
+                if (origen == null || origen.trim().isEmpty()) return;
+                String destino = javax.swing.JOptionPane.showInputDialog("ID neurona destino:");
+                if (destino == null || destino.trim().isEmpty()) return;
+
+                EDD.Lista<String> ruta = grafo.dijkstra(origen.trim(), destino.trim());
+                if (ruta.isEmpty()) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "No hay camino entre esas neuronas.");
+                } else {
+                    String resultado = "Ruta mas rapida:\n";
+                    EDD.NodoLista<String> aux = ruta.getHead();
+                    while (aux != null) {
+                        resultado += aux.dato;
+                        if (aux.pNext != null) resultado += " -> ";
+                        aux = aux.pNext;
+                    }
+                    javax.swing.JOptionPane.showMessageDialog(null, resultado);
+                }
+            }
+        });
+
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (grafo.getNodos().isEmpty()) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Primero carga una red.");
+                    return;
+                }
+                grafo.simularDeterioro();
+                panelGrafo.repaint();
+                javax.swing.JOptionPane.showMessageDialog(null,
+                    "Deterioro simulado. Los coeficientes k aumentaron un 20%.");
+            }
+        });
     }
 
     /**
@@ -141,19 +206,137 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCargarActionPerformed
-        // TODO add your handling code here:
+        if (!grafo.getNodos().isEmpty()) {
+            int resp = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Ya hay datos cargados. ¿Desea reemplazarlos?", "Confirmar",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+            if (resp != javax.swing.JOptionPane.YES_OPTION) return;
+            grafo = new Control.GrafoDirigido(grafo.getDiccionarioNeuroT());
+        }
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        int resultado = selector.showOpenDialog(this);
+        if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
+            try {
+                String ruta = selector.getSelectedFile().getAbsolutePath();
+                grafo.cargarRedCSV(ruta);
+                panelGrafo.setGrafo(grafo);
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Red cargada con " + grafo.getNodos().getSize() + " neuronas.");
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error al cargar el archivo: " + ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_BtnCargarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        int resultado = selector.showOpenDialog(this);
+        if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
+            try {
+                String ruta = selector.getSelectedFile().getAbsolutePath();
+                grafo.cargarDiccionarioCSV(ruta);
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Diccionario cargado: " + grafo.getDiccionarioNeuroT().getCantidadElementos() + " neurotransmisores.");
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        if (grafo.getNodos().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero carga una red.");
+            return;
+        }
+        String fuente = javax.swing.JOptionPane.showInputDialog(this, "Ingresa el ID de la neurona fuente:");
+        if (fuente == null || fuente.trim().isEmpty()) return;
+        fuente = fuente.trim();
+
+        if (grafo.buscarNeurona(fuente) == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La neurona '" + fuente + "' no existe.");
+            return;
+        }
+
+        EDD.Lista<String> zonasAisladas = grafo.detectarZonasAisladas(fuente);
+        panelGrafo.setAisladas(zonasAisladas);
+        if (ventanaGrafo != null) ventanaGrafo.repaint();
+
+        String mensaje;
+        if (zonasAisladas.isEmpty()) {
+            mensaje = "No hay zonas aisladas desde '" + fuente + "'.";
+        } else {
+            mensaje = "Zonas aisladas desde '" + fuente + "':\n";
+            EDD.NodoLista<String> aux = zonasAisladas.getHead();
+            while (aux != null) {
+                mensaje += "- " + aux.dato + "\n";
+                aux = aux.pNext;
+            }
+        }
+        boolean conexo = grafo.verificarFuerteConexidad();
+        mensaje += "\nEl grafo es fuertemente conexo: " + (conexo ? "Si" : "No");
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        String[] opciones = {"Agregar Neurona", "Eliminar Neurona", "Agregar Sinapsis", "Eliminar Sinapsis"};
+        String opcion = (String) javax.swing.JOptionPane.showInputDialog(this,
+            "Selecciona una opcion:", "Modificar Red",
+            javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (opcion == null) return;
+
+        if (opcion.equals("Agregar Neurona")) {
+            String id = javax.swing.JOptionPane.showInputDialog(this, "ID de la nueva neurona:");
+            if (id == null || id.trim().isEmpty()) return;
+            String kStr = javax.swing.JOptionPane.showInputDialog(this, "Coeficiente k (ejemplo: 1.0):");
+            if (kStr == null) return;
+            try {
+                double k = Double.parseDouble(kStr.trim());
+                grafo.agregarNeurona(id.trim(), k);
+                panelGrafo.setGrafo(grafo);
+                javax.swing.JOptionPane.showMessageDialog(this, "Neurona '" + id.trim() + "' agregada.");
+            } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "El valor de k no es valido.");
+            }
+
+        } else if (opcion.equals("Eliminar Neurona")) {
+            String id = javax.swing.JOptionPane.showInputDialog(this, "ID de la neurona a eliminar:");
+            if (id == null || id.trim().isEmpty()) return;
+            grafo.eliminarNeurona(id.trim());
+            panelGrafo.setGrafo(grafo);
+            javax.swing.JOptionPane.showMessageDialog(this, "Neurona eliminada.");
+
+        } else if (opcion.equals("Agregar Sinapsis")) {
+            String origen = javax.swing.JOptionPane.showInputDialog(this, "ID neurona origen:");
+            if (origen == null || origen.trim().isEmpty()) return;
+            String destino = javax.swing.JOptionPane.showInputDialog(this, "ID neurona destino:");
+            if (destino == null || destino.trim().isEmpty()) return;
+            String dStr = javax.swing.JOptionPane.showInputDialog(this, "Distancia:");
+            if (dStr == null) return;
+            String nt = javax.swing.JOptionPane.showInputDialog(this, "ID Neurotransmisor:");
+            if (nt == null) return;
+            String kStr = javax.swing.JOptionPane.showInputDialog(this, "Coeficiente k:");
+            if (kStr == null) return;
+            try {
+                double dist = Double.parseDouble(dStr.trim());
+                double k = Double.parseDouble(kStr.trim());
+                grafo.agregarArista(origen.trim(), destino.trim(), dist, nt.trim(), k);
+                panelGrafo.setGrafo(grafo);
+                javax.swing.JOptionPane.showMessageDialog(this, "Sinapsis agregada.");
+            } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Valor numerico no valido.");
+            }
+
+        } else if (opcion.equals("Eliminar Sinapsis")) {
+            String origen = javax.swing.JOptionPane.showInputDialog(this, "ID neurona origen:");
+            if (origen == null || origen.trim().isEmpty()) return;
+            String destino = javax.swing.JOptionPane.showInputDialog(this, "ID neurona destino:");
+            if (destino == null || destino.trim().isEmpty()) return;
+            grafo.eliminarArista(origen.trim(), destino.trim());
+            panelGrafo.setGrafo(grafo);
+            javax.swing.JOptionPane.showMessageDialog(this, "Sinapsis eliminada.");
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
