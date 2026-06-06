@@ -5,7 +5,7 @@ Proyecto de Estructuras de Datos (BPTSP06)
 Universidad Metropolitana - Trimestre 2526-3
 
 Integrantes:
-- Miguel Gallo
+- Vincenzo Gallo
 - Adriana Julian
 - Samuel Djekki
 
