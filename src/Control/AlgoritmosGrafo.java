@@ -11,7 +11,7 @@ import ModeloNeuronal.Sinapsis;
 import EDD.Cola;
 import EDD.Pila;
 
-/**
+    /**
  *
  * @author Samuel Djekki
  */
