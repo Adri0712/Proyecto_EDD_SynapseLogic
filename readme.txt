@@ -6,7 +6,7 @@ Universidad Metropolitana - Trimestre 2526-3
 
 Integrantes:
 - Miguel Gallo
-- Adriana [apellido]
+- Adriana Julian
 - Samuel Djekki
 
 Descripcion:
